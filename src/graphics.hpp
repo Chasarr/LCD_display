@@ -22,7 +22,6 @@ public:
     virtual short unsigned int getX() = 0;
     virtual short unsigned int getY() = 0;
     static Adafruit_SharpMem display;
-    //static String someString;
 protected:
     short unsigned int x = 0;
     short unsigned int y = 0;

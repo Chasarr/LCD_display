@@ -8,31 +8,33 @@ GUI::GUI() {
 }
 
 boolean GUI::firstRun = true;
+Adafruit_SharpMem GUI::display = Adafruit_SharpMem(SHARP_SCK, SHARP_MOSI, SHARP_SS, 400, 240);
 void GUI::initializeGraphics() {
     Serial.println("Initializing...");
     if (firstRun) {
-        GUI::display = Adafruit_SharpMem(SHARP_SCK, SHARP_MOSI, SHARP_SS, 400, 240);
-        //someString = "something";
+        Serial.println("Yep it initialized");
+        display.begin();
+        display.clearDisplay();
+        Serial.println("Display is cleared");
+        display.write("Yep it initialized");
+        display.fillScreen(BLACK);
+        display.refresh();
+        delay(1000);
+        display.clearDisplay();
+        display.refresh();
+
+    } else {
+        Serial.println("NOPE NOT INITIALIZING TODAY");
+        //display.clearDisplay();
+
+        //display.write("NOPE NOT INITIALIZING TODAY");
+        delay(1000);
+        //display.clearDisplay();
+
+        //display.refresh();
+
     }
-    /*
-    Serial.println("Yep it initialized");
-    display.clearDisplay();
-    Serial.println("Display is cleared");
-    display.write("Yep it initialized");
-    delay(1000);
-    display.clearDisplay();
-    display.refresh();
-
-}else{
-    Serial.println("NOPE NOT INITIALIZING TODAY");
-    display.clearDisplay();
-    display.write("NOPE NOT INITIALIZING TODAY");
-    delay(1000);
-    display.clearDisplay();
-    display.refresh();
-}*/
 }
-
 
 PromptBox::PromptBox(String &promptStr) : GUI() {
     this->promptStr = promptStr;

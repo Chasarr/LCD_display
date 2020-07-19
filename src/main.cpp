@@ -34,6 +34,7 @@ void benchmark();
 using namespace std;
 
 
+//String GUI::someString = "Hello worldz";
 void setup() {
     Serial.begin(115200);
     pinMode(LED_PIN, OUTPUT);
@@ -42,6 +43,8 @@ void setup() {
     pinMode(RST_PIN, INPUT_PULLUP);
     pinMode(ANALOG_X, INPUT);
     pinMode(ANALOG_Y, INPUT);
+
+
     String promptText1 = "Yes or no?";
     String promptText2 = "Yes or no?";
     //PromptBox box = PromptBox(promptText1);
