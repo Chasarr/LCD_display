@@ -39,8 +39,9 @@ void setup() {
     Serial.begin(115200);
     pinMode(LED_PIN, OUTPUT);
     pinMode(BEEP_PIN, OUTPUT);
-    pinMode(BTN_PIN, INPUT_PULLUP);
-    pinMode(RST_PIN, INPUT_PULLUP);
+    pinMode(LEFT_BTN, INPUT_PULLUP);
+    pinMode(ENTER_BTN, INPUT_PULLUP);
+    pinMode(RIGHT_BTN, INPUT_PULLUP);
     pinMode(ANALOG_X, INPUT);
     pinMode(ANALOG_Y, INPUT);
 

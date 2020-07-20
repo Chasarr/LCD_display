@@ -34,6 +34,8 @@ public:
 
     virtual void setY(short unsigned int y);
 
+    virtual void setPos(short unsigned int x, short unsigned int y);
+
     virtual void setParent(GUI *parent);
 
     short unsigned int getLeftEdge();
@@ -43,6 +45,18 @@ public:
     short unsigned int getUpperEdge();
 
     short unsigned int getLowerEdge();
+
+    unsigned short getXMax() const;
+
+    unsigned short getYMax() const;
+
+    unsigned short getXMin() const;
+
+    unsigned short getYMin() const;
+
+    unsigned short getWidth() const;
+
+    unsigned short getHeight() const;
 
 protected:
     static boolean firstRun;
@@ -61,7 +75,11 @@ protected:
     unsigned short int xMin;
     unsigned short int yMin;
 
+    unsigned short int width;
+    unsigned short int height;
+
     void initializeGraphics();
+
     void drawChildren();
 
     void pushGUI(GUI &guiElement);
@@ -104,12 +122,17 @@ public:
 
     void setBtnTxt(char *btnTxt);
 
+    void select();
+
+    void deselect();
+
     void draw() override;
 
     unsigned short int getX() override;
 
     unsigned short int getY() override;
 
+    boolean getSelected();
 private:
-    char *btnTxt;
-};
+    boolean selected = false;
+    char *btnTxt;};

@@ -3,6 +3,8 @@
 
 Button::Button(char *btnTxt) {
     this->btnTxt = btnTxt;
+    width = 100;
+    height = 40;
 }
 
 void Button::setBtnTxt(char *btnTxt) {
@@ -10,10 +12,21 @@ void Button::setBtnTxt(char *btnTxt) {
 }
 
 void Button::draw() {
-    Serial.print("xMin = ");
-    Serial.println(xMin);
-    display.drawRoundRect(xMin + x, yMin + y, 100, 40, 20, BLACK);
+    display.setCursor(getX() + 2 * PADDING, getY() + PADDING);
+    Serial.println(getUpperEdge());
+
+    if (selected) {
+        display.setTextColor(WHITE);
+        display.fillRoundRect(x, y, width, height, PADDING, BLACK);
+        display.write(btnTxt);
+    } else {
+        display.setTextColor(BLACK);
+        display.fillRoundRect(x, y, width, height, PADDING, WHITE);
+        display.drawRoundRect(x, y, width, height, PADDING, BLACK);
+        display.write(btnTxt);
+    }
 }
+
 
 unsigned short int Button::getX() {
     return x;
@@ -21,4 +34,16 @@ unsigned short int Button::getX() {
 
 unsigned short int Button::getY() {
     return y;
+}
+
+void Button::select() {
+    selected = true;
+}
+
+void Button::deselect() {
+    selected = false;
+}
+
+boolean Button::getSelected() {
+    return selected;
 }

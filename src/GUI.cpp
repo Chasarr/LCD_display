@@ -25,6 +25,27 @@ void GUI::setY(short unsigned int y) {
     this->y = y;
 }
 
+void GUI::setPos(unsigned short x, unsigned short y){
+    setX(x);
+    setY(y);
+}
+
+unsigned short GUI::getXMax() const {
+    return xMax;
+}
+
+unsigned short GUI::getYMax() const {
+    return yMax;
+}
+
+unsigned short GUI::getXMin() const {
+    return xMin;
+}
+
+unsigned short GUI::getYMin() const {
+    return yMin;
+}
+
 short unsigned int GUI::getX() {
     return x;
 }
@@ -56,32 +77,32 @@ void GUI::drawChildren(){
 
 }
 
+unsigned short GUI::getWidth() const {
+    return width;
+}
+
+unsigned short GUI::getHeight() const {
+    return height;
+}
 
 void GUI::pushGUI(GUI &guiElement) {
-    Serial.print("Sanity check, leftEdge = ");
-    Serial.println(leftEdge);
     GUIList.push_front(&guiElement);
-
-
     guiElement.setParent(this);
 
 }
 
 void GUI::setParent(GUI *parent) {
     this->parent = parent;
-    Serial.print("Setting xMin with parent->getLeftEdge(). which is equal to ");
-    Serial.println(parent->getLeftEdge());
-    xMin = parent->getLeftEdge();
-    xMax = parent->getRightEdge();
-    yMin = parent->getUpperEdge();
-    yMax = parent->getLowerEdge();
+    xMin = parent->getLeftEdge() + PADDING;
+    xMax = parent->getRightEdge() - PADDING;
+    yMin = parent->getUpperEdge() + PADDING;
+    yMax = parent->getLowerEdge() - PADDING;
 }
 
 Adafruit_SharpMem GUI::display = Adafruit_SharpMem(SHARP_SCK, SHARP_MOSI, SHARP_SS, X_RES, Y_RES);
 
 void GUI::initializeGraphics() {
     if (firstRun) {
-        Serial.println("Initializing");
         display.begin();
         display.clearDisplay();
         display.refresh();
@@ -91,8 +112,6 @@ void GUI::initializeGraphics() {
         display.cp437(true);
         display.setRotation(2);
         firstRun = false;
-    } else {
-        Serial.println("Not initializing");
     }
 }
 
