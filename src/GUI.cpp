@@ -8,48 +8,44 @@ GUI::GUI() {
 }
 
 boolean GUI::firstRun = true;
-Adafruit_SharpMem GUI::display = Adafruit_SharpMem(SHARP_SCK, SHARP_MOSI, SHARP_SS, 400, 240);
+Adafruit_SharpMem GUI::display = Adafruit_SharpMem(SHARP_SCK, SHARP_MOSI, SHARP_SS, X_MAX, Y_MAX);
 void GUI::initializeGraphics() {
-    Serial.println("Initializing...");
     if (firstRun) {
-        Serial.println("Yep it initialized");
+        Serial.println("Initializing");
         display.begin();
         display.clearDisplay();
-        Serial.println("Display is cleared");
-        display.write("Yep it initialized");
-        display.fillScreen(BLACK);
         display.refresh();
-        delay(1000);
-        display.clearDisplay();
-        display.refresh();
-
+        display.setTextSize(3);
+        display.setTextColor(BLACK);
+        display.setCursor(0,0);
+        display.cp437(true);
+        display.setRotation(2);
+        firstRun = false;
     } else {
-        Serial.println("NOPE NOT INITIALIZING TODAY");
-        //display.clearDisplay();
-
-        //display.write("NOPE NOT INITIALIZING TODAY");
-        delay(1000);
-        //display.clearDisplay();
-
-        //display.refresh();
-
+        Serial.println("Not initializing");
     }
 }
 
-PromptBox::PromptBox(String &promptStr) : GUI() {
-    this->promptStr = promptStr;
+PromptBox::PromptBox(const char *promptString) : GUI() {
+    this->promptString = const_cast<char *>(promptString);
 
 }
 
 void PromptBox::draw(const unsigned short &x, const unsigned short &y) {
     this->x = x;
     this->y = y;
-    //display.drawRect(5, 5, 50, 50, BLACK);
-    //display.refresh();
+    display.clearDisplay();
+    display.drawRoundRect(PADDING, PADDING, X_MAX-2*PADDING, Y_MAX-2*PADDING, 20, BLACK);
+    display.setCursor(PADDING*3, PADDING*3);
+    Serial.println(display.write("Yes or no?"));
+    display.drawLine(PADDING, PADDING*7, X_MAX-PADDING, PADDING*7, BLACK);
+
+    display.refresh();
+    delay(5000);
 }
 
-void PromptBox::setPromptText(String &promptStr) {
-    this->promptStr = promptStr;
+void PromptBox::setPromptText(char *promptString) {
+    this->promptString = promptString;
 }
 
 unsigned short int PromptBox::getX() {

@@ -45,11 +45,9 @@ void setup() {
     pinMode(ANALOG_Y, INPUT);
 
 
-    String promptText1 = "Yes or no?";
-    String promptText2 = "Yes or no?";
-    //PromptBox box = PromptBox(promptText1);
-    PromptBox box2(promptText2);
-    box2.draw();
+    PromptBox box1 = PromptBox("Yes or no?");
+    //PromptBox box2(promptText2);
+    box1.draw();
 }
 
 void loop(){

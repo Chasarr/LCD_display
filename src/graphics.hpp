@@ -8,6 +8,7 @@
 #define SHARP_MOSI 14
 #define SHARP_SS 32
 #define BLACK 0
+#define PADDING 10
 #define WHITE 1
 
 
@@ -35,12 +36,12 @@ protected:
  **/
 class PromptBox : public GUI {
 public:
-    PromptBox(String &promptStr);
-    void setPromptText(String &promptStr);
+    PromptBox(const char *promptString);
+    void setPromptText(char *promptString);
     void draw(const unsigned short &x = 0, const unsigned short &y = 0) override;
     unsigned short int getX() override;
     unsigned short int getY() override;
 
 private:
-    String promptStr;
+    char *promptString;
 };
