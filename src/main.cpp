@@ -82,7 +82,7 @@ void benchmark() {
 
     time = millis();
     display.fillRect(0, 0, X_MAX, Y_MAX, BLACK);
-    display.refresh();
+    display.drawChildren();
     unsigned int firstTime = millis() - time;
     //Print & cleanup
     Serial.print("First method: ");
@@ -107,7 +107,7 @@ void benchmark() {
         }
     }
 
-    display.refresh();
+    display.drawChildren();
     unsigned int secondTime = millis() - time;
     Serial.print("Second method: ");
     Serial.println(secondTime);
@@ -145,7 +145,7 @@ void drawing() {
     Serial.print("\tY: ");
     Serial.println(yPos);
     display.fillCircle(xPos, yPos, 10, color);
-    display.refresh();
+    display.drawChildren();
 }
 
 // Variables will change:
