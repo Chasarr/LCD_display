@@ -13,7 +13,6 @@ void Button::setBtnTxt(char *btnTxt) {
 
 void Button::draw() {
     display.setCursor(getX() + 2 * PADDING, getY() + PADDING);
-    Serial.println(getUpperEdge());
 
     if (selected) {
         display.setTextColor(WHITE);

@@ -1,8 +1,10 @@
+/************************************
+ Project that uses a Sharp monochrome LCD display together with my self made graphics library
+ ***********************************/
 
 #include <ESPRandom.h>
 #include <cstdlib>
 #include "common.hpp"
-
 
 #ifdef    ARDUINO_ARCH_ESP32
 
@@ -10,7 +12,12 @@
 #define SOUND_RESOLUTION    8 // 8 bit resolution
 #define SOUND_ON            (1<<(SOUND_RESOLUTION-1)) // 50% duty cycle
 #define SOUND_OFF           0                         // 0% duty cycle
-
+/**
+ * //Creates a beep sound if a piezo electric speaker is connected
+ * @param pin               Which pin is the speaker connected to?
+ * @param frequency         Which frequency/tone should the speaker play?
+ * @param duration          How long should the speaker play the sound?
+ */
 void tone(int pin, int frequency, int duration) {
     Serial.println(__cplusplus);
     Serial.println("I'm makin sound ovah heah");
@@ -26,17 +33,17 @@ void tone(int pin, int frequency, int duration) {
 
 
 boolean debounce(const int &btn);
-
 void drawing();
-
 void benchmark();
-
 using namespace std;
 
 
-//String GUI::someString = "Hello worldz";
+/**
+ * Setup function
+ */
 void setup() {
-    Serial.begin(115200);
+    Serial.begin(115200);       //Initializes serial communication if computer is connected
+    //Initializes pins
     pinMode(LED_PIN, OUTPUT);
     pinMode(BEEP_PIN, OUTPUT);
     pinMode(LEFT_BTN, INPUT_PULLUP);
@@ -45,13 +52,14 @@ void setup() {
     pinMode(ANALOG_X, INPUT);
     pinMode(ANALOG_Y, INPUT);
 
-
-    PromptBox box1 = PromptBox("Yes or no?");
+    //Short beep indicating that the device has started
+    tone(BEEP_PIN, 440, 50);
+    PromptBox box1 = PromptBox("loool or lmao?");       //Launches a prompt box, letting the user anser yes or no
     //PromptBox box2(promptText2);
-    box1.draw();
+    box1.draw();            //Draws the box
 }
 
-void loop(){
+void loop() {
     delay(500);
 }
 /*

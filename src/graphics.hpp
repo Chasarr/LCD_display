@@ -1,3 +1,7 @@
+/****************************************************
+  Graphics library to display various GUI elements
+ ****************************************************/
+
 #pragma once  //include guarding
 
 #include <Adafruit_GFX.h>
@@ -24,35 +28,44 @@ public:
 
     ~GUI();
 
+    /**
+     * All GUI objects must be able to be drawn, and must use this function
+     */
     virtual void draw() = 0;
 
+    /**
+     * @return X    Get X position
+     */
     virtual short unsigned int getX();
 
+    /**
+     * @return Get Y position
+     */
     virtual short unsigned int getY();
 
+    /**
+     * @param x     Input X coordinate
+     */
     virtual void setX(short unsigned int x);
 
+    /**
+     * @param y     Input Y coordinate
+     */
     virtual void setY(short unsigned int y);
 
+    /**
+     * Sets both X and Y position simultaneously
+     * @param x
+     * @param y
+     */
     virtual void setPos(short unsigned int x, short unsigned int y);
 
+    /**
+     * Sets parent object. Some GUI elements contain other elements.
+     * An example of this is the PromptBox, which contains two button objects with "Yes" or "No" answers
+     * @param parent    Parent GUI object of this object
+     */
     virtual void setParent(GUI *parent);
-
-    short unsigned int getLeftEdge();
-
-    short unsigned int getRightEdge();
-
-    short unsigned int getUpperEdge();
-
-    short unsigned int getLowerEdge();
-
-    unsigned short getXMax() const;
-
-    unsigned short getYMax() const;
-
-    unsigned short getXMin() const;
-
-    unsigned short getYMin() const;
 
     unsigned short getWidth() const;
 
@@ -64,14 +77,14 @@ protected:
     short unsigned int x = 0;
     short unsigned int y = 0;
     //This is the "child space", where the children can operate
-    short unsigned int leftEdge;
+    /*short unsigned int leftEdge;
     short unsigned rightEdge;
     short unsigned upperEdge;
-    short unsigned lowerEdge;
+    short unsigned lowerEdge;*/
     std::list<GUI *> GUIList;
     //By default the object is top-level and has same constraints as display res
     unsigned short int xMax;// = X_RES;
-    unsigned short int yMax;// = Y_RES;
+    unsigned short int yMax;    // = Y_RES;
     unsigned short int xMin;
     unsigned short int yMin;
 
@@ -133,6 +146,8 @@ public:
     unsigned short int getY() override;
 
     boolean getSelected();
+
 private:
     boolean selected = false;
-    char *btnTxt;};
+    char *btnTxt;
+};
