@@ -4,6 +4,9 @@
 #include <Arduino.h>
 #include "graphics.hpp"
 #include <string>
+#include "Debounce.hpp"
+#include "img/Images.hpp"
+
 
 
 // any pins can be used
@@ -17,6 +20,7 @@
 #define LED_PIN 33
 
 
+void tone(unsigned short int pin, unsigned short int frequency = 440, unsigned short int duration = 50);
 
 
 

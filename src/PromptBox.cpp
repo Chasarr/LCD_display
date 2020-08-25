@@ -1,16 +1,25 @@
 #include "common.hpp"
 
+
 PromptBox::PromptBox(const char *promptString) : GUI() {
-    this->promptString = const_cast<char *>(promptString);
+    setPromptText(promptString);
+    xMin = PADDING;
+    xMax = X_RES - PADDING;
+    yMin = PADDING;
+    yMax = Y_RES - PADDING;
+
+
 }
 
 void PromptBox::draw() {
-    this->x = x;
-    this->y = y;
-    display.fillRoundRect(PADDING, PADDING, width, height, 20, WHITE);
-    display.drawRoundRect(PADDING, PADDING, width, height, 20, BLACK);
+    prompt();
+}
+
+boolean PromptBox::prompt(){
+    display.fillRoundRect(PADDING, PADDING, getWidth(), getHeight(), 20, WHITE);
+    display.drawRoundRect(PADDING, PADDING, getWidth(), getHeight(), 20, BLACK);
     display.setCursor(PADDING * 3, PADDING * 3);
-    Serial.println(display.write(promptString));
+    display.write(promptString);
     display.drawLine(PADDING, PADDING * 7, X_RES - PADDING, PADDING * 7, BLACK);
     Button noBtn("No");
     Button yesBtn("Yes");
@@ -26,41 +35,18 @@ void PromptBox::draw() {
         if (!digitalRead(LEFT_BTN)) {
             yesBtn.select();
             noBtn.deselect();
+            drawChildren();
+            display.refresh();
         } else if (!digitalRead(RIGHT_BTN)) {
             noBtn.select();
             yesBtn.deselect();
+            drawChildren();
+            display.refresh();
         }
-        drawChildren();
-        display.refresh();
     }
-    digitalWrite(LED_PIN, HIGH);
-    delay(500000000);
-
-    /*for(;;) {
-        display.clearDisplay();
-        display.drawRoundRect(leftEdge, upperEdge, width, height, PADDING, BLACK);
-        unsigned short int xRead = analogRead(ANALOG_X);
-        unsigned short int yRead = analogRead(ANALOG_Y);
-        yesBtn.setPos(xRead, yRead);
-        drawChildren();
-        Serial.print("xRead = ");
-        Serial.print(xRead);
-        Serial.print("\tyRead = ");
-        Serial.println(yRead);
-
-        display.refresh();
-    }*/
-    delay(5000);
+    return yesBtn.getSelected();
 }
 
-void PromptBox::setPromptText(char *promptString) {
-    this->promptString = promptString;
-}
-
-unsigned short int PromptBox::getX() {
-    return x;
-}
-
-unsigned short int PromptBox::getY() {
-    return y;
+void PromptBox::setPromptText(const char *promptString) {
+    this->promptString = const_cast<char *>(promptString);
 }

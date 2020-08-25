@@ -3,14 +3,10 @@
 #include "common.hpp"
 #include "graphics.hpp"
 
-boolean GUI::firstRun = true;
+bool GUI::firstRun = true;
 
 GUI::GUI() {
     initializeGraphics();
-    xMin = 0;
-    xMax = X_RES;
-    yMin = 0;
-    yMax = Y_RES;
 }
 
 GUI::~GUI() {
@@ -18,27 +14,29 @@ GUI::~GUI() {
 }
 
 void GUI::setX(short unsigned int x) {
-    this->x = x;
+    xMax += x - xMin;
+    xMin = x;
 }
 
 void GUI::setY(short unsigned int y) {
-    this->y = y;
+    yMax += y-yMin;
+    yMin = y;
 }
 
-void GUI::setPos(unsigned short x, unsigned short y){
+void GUI::setPos(unsigned short x, unsigned short y) {
     setX(x);
     setY(y);
 }
 
 short unsigned int GUI::getX() {
-    return x;
+    return xMin;
 }
 
 short unsigned int GUI::getY() {
-    return y;
+    return yMin;
 }
 
-void GUI::drawChildren(){
+void GUI::drawChildren() {
     // Iterate and draws objects in list
     for (GUI *element : GUIList) {
         element->draw();
@@ -46,12 +44,20 @@ void GUI::drawChildren(){
 
 }
 
-unsigned short GUI::getWidth() const {
-    return width;
+unsigned short int GUI::getWidth() const {
+    return xMax - xMin;
 }
 
-unsigned short GUI::getHeight() const {
-    return height;
+unsigned short int GUI::getHeight() const {
+    return yMax - yMin;
+}
+
+void GUI::setWidth(unsigned short int width) {
+    xMax = xMin + width;
+}
+
+void GUI::setHeight(unsigned short int height) {
+    yMax = yMin + height;
 }
 
 void GUI::pushGUI(GUI &guiElement) {
@@ -75,8 +81,8 @@ void GUI::initializeGraphics() {
         display.setCursor(0, 0);
         display.cp437(true);
         display.setRotation(2);
-        firstRun = false;
     }
+    firstRun = false;
 }
 
 

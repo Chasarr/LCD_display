@@ -1,10 +1,10 @@
 #include "common.hpp"
 
 
-Button::Button(char *btnTxt) {
+Button::Button(char *btnTxt) : GUI() {
     this->btnTxt = btnTxt;
-    width = 100;
-    height = 40;
+    setWidth(100);
+    setHeight(40);
 }
 
 void Button::setBtnTxt(char *btnTxt) {
@@ -13,26 +13,23 @@ void Button::setBtnTxt(char *btnTxt) {
 
 void Button::draw() {
     display.setCursor(getX() + 2 * PADDING, getY() + PADDING);
+    Serial.print("getHeight() = ");
+    Serial.print(getHeight());
+    Serial.print(", yMin = ");
+    Serial.print(yMin);
+    Serial.print(", yMax = ");
+    Serial.println(yMax);
 
     if (selected) {
         display.setTextColor(WHITE);
-        display.fillRoundRect(x, y, width, height, PADDING, BLACK);
+        display.fillRoundRect(xMin, yMin, getWidth(), getHeight(), PADDING, BLACK);
         display.write(btnTxt);
     } else {
         display.setTextColor(BLACK);
-        display.fillRoundRect(x, y, width, height, PADDING, WHITE);
-        display.drawRoundRect(x, y, width, height, PADDING, BLACK);
+        display.fillRoundRect(xMin, yMin, getWidth(), getHeight(), PADDING, WHITE);
+        display.drawRoundRect(xMin, yMin, getWidth(), getHeight(), PADDING, BLACK);
         display.write(btnTxt);
     }
-}
-
-
-unsigned short int Button::getX() {
-    return x;
-}
-
-unsigned short int Button::getY() {
-    return y;
 }
 
 void Button::select() {
@@ -43,6 +40,6 @@ void Button::deselect() {
     selected = false;
 }
 
-boolean Button::getSelected() {
+bool Button::getSelected() {
     return selected;
 }
