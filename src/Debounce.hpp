@@ -2,7 +2,7 @@
 #define HIGH 1
 #define LOW 0
 
-#define DEBOUNCE_THRESHOLD 20       //How quick can a button click be to be registered?
+#define DEBOUNCE_THRESHOLD 10       //How quick can a button click be to be registered?
 
 
 /**

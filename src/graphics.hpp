@@ -269,7 +269,35 @@ public:
     MainMenu();
 
     /**
-     * Draws the menu
+     * Draws the menu. USE prompt() INSTEAD
      */
     void draw();
+
+    /**
+     * Selects an icon and and displays it to the user
+     * @param selected Selected item box
+     */
+    void select(unsigned short selected);
+
+    /**
+     * Draws a single icon
+     * @param iconNumber Number from between 0 and 99999999999999999...
+     * @param selected Is the box selected?
+     */
+    void drawIcon(unsigned short iconNumber, bool selected = false);
+
+    /**
+     * Draws a single icon
+     * @param column Column of the item
+     * @param row   Row of the item
+     * @param selected Is the box selected?
+     */
+    void drawIcon(unsigned short column, unsigned short row, bool selected = false);
+    /**
+     * Prompts the user for a menu input
+     * @return User input
+     */
+    unsigned short prompt();
+private:
+    unsigned short selected = 0;
 };

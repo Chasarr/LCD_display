@@ -7,3 +7,4 @@
 extern Image trollface;
 extern Image sadface;
 extern Image hatsune;
+extern Image calcIcon;

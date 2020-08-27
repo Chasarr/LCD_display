@@ -4,6 +4,7 @@
 #include <ESPRandom.h>
 #include <cstdlib>
 #include "common.hpp"
+
 using namespace std;
 
 /**
@@ -25,8 +26,17 @@ void setup() {
     tone(BEEP_PIN);
     digitalWrite(LED_PIN, LOW);
     MainMenu menu;
-    menu.draw();
-
+    unsigned short nbr = menu.prompt();
+    unsigned int tones[] = {NOTE_C5, NOTE_D5, NOTE_E5, NOTE_F5, NOTE_G5, NOTE_A5, NOTE_B5, NOTE_C6, NOTE_D6, NOTE_E6,
+                            NOTE_F6, NOTE_G6, NOTE_A6, NOTE_B6};
+    for (unsigned short i = 0; i < nbr; i++) {
+        tone(BEEP_PIN, tones[i]);
+        delay(500);
+    }
+    for (unsigned short i = 0; i < 10; i++) {
+        tone(BEEP_PIN, tones[nbr]);
+        delay(200);
+    }
 }
 
 void loop() {
