@@ -37,6 +37,8 @@ void setup() {
         tone(BEEP_PIN, tones[nbr]);
         delay(200);
     }
+
+    Serial.println("42069");
 }
 
 void loop() {
